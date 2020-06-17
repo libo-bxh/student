@@ -29,3 +29,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+/target/*
+/.idea/*
+/src/test/*
+/out/*
+/web/WEB-INF/classes/
+*.iml
