@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.TehinfoMapper" >
+
+<!-- 判断登录 -->
+  <select id="CheckLogin" resultType="Tehinfo">
+  	select * from Tehinfo where tehname=#{tehname} and tehpwd=#{tehpwd}
+  </select>
+
+  <!-- 查询所有教师信息 -->
+  <select id="selectAll" resultType="tehinfo">
+  	select * from tehinfo;
+  </select>
+
+
+  <resultMap id="BaseResultMap" type="com.entity.Tehinfo" >
+    <id column="tehid" property="tehid" jdbcType="INTEGER" />
+    <result column="tehgh" property="tehgh" jdbcType="INTEGER" />
+    <result column="tehpwd" property="tehpwd" jdbcType="INTEGER" />
+    <result column="tehname" property="tehname" jdbcType="VARCHAR" />
+    <result column="tehsex" property="tehsex" jdbcType="VARCHAR" />
+    <result column="tahtel" property="tahtel" jdbcType="INTEGER" />
+    <result column="tehqq" property="tehqq" jdbcType="INTEGER" />
+    <result column="tehcourse" property="tehcourse" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    tehid, tehgh, tehpwd, tehname, tehsex, tahtel, tehqq, tehcourse
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.entity.TehinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tehinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tehinfo
+    where tehid = #{tehid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tehinfo
+    where tehid = #{tehid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.entity.TehinfoExample" >
+    delete from tehinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entity.Tehinfo" >
+    insert into tehinfo (tehid, tehgh, tehpwd, 
+      tehname, tehsex, tahtel, 
+      tehqq, tehcourse)
+    values (#{tehid,jdbcType=INTEGER}, #{tehgh,jdbcType=INTEGER}, #{tehpwd,jdbcType=INTEGER}, 
+      #{tehname,jdbcType=VARCHAR}, #{tehsex,jdbcType=VARCHAR}, #{tahtel,jdbcType=INTEGER}, 
+      #{tehqq,jdbcType=INTEGER}, #{tehcourse,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Tehinfo" >
+    insert into tehinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tehid != null" >
+        tehid,
+      </if>
+      <if test="tehgh != null" >
+        tehgh,
+      </if>
+      <if test="tehpwd != null" >
+        tehpwd,
+      </if>
+      <if test="tehname != null" >
+        tehname,
+      </if>
+      <if test="tehsex != null" >
+        tehsex,
+      </if>
+      <if test="tahtel != null" >
+        tahtel,
+      </if>
+      <if test="tehqq != null" >
+        tehqq,
+      </if>
+      <if test="tehcourse != null" >
+        tehcourse,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tehid != null" >
+        #{tehid,jdbcType=INTEGER},
+      </if>
+      <if test="tehgh != null" >
+        #{tehgh,jdbcType=INTEGER},
+      </if>
+      <if test="tehpwd != null" >
+        #{tehpwd,jdbcType=INTEGER},
+      </if>
+      <if test="tehname != null" >
+        #{tehname,jdbcType=VARCHAR},
+      </if>
+      <if test="tehsex != null" >
+        #{tehsex,jdbcType=VARCHAR},
+      </if>
+      <if test="tahtel != null" >
+        #{tahtel,jdbcType=INTEGER},
+      </if>
+      <if test="tehqq != null" >
+        #{tehqq,jdbcType=INTEGER},
+      </if>
+      <if test="tehcourse != null" >
+        #{tehcourse,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entity.TehinfoExample" resultType="java.lang.Integer" >
+    select count(*) from tehinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tehinfo
+    <set >
+      <if test="record.tehid != null" >
+        tehid = #{record.tehid,jdbcType=INTEGER},
+      </if>
+      <if test="record.tehgh != null" >
+        tehgh = #{record.tehgh,jdbcType=INTEGER},
+      </if>
+      <if test="record.tehpwd != null" >
+        tehpwd = #{record.tehpwd,jdbcType=INTEGER},
+      </if>
+      <if test="record.tehname != null" >
+        tehname = #{record.tehname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tehsex != null" >
+        tehsex = #{record.tehsex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tahtel != null" >
+        tahtel = #{record.tahtel,jdbcType=INTEGER},
+      </if>
+      <if test="record.tehqq != null" >
+        tehqq = #{record.tehqq,jdbcType=INTEGER},
+      </if>
+      <if test="record.tehcourse != null" >
+        tehcourse = #{record.tehcourse,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tehinfo
+    set tehid = #{record.tehid,jdbcType=INTEGER},
+      tehgh = #{record.tehgh,jdbcType=INTEGER},
+      tehpwd = #{record.tehpwd,jdbcType=INTEGER},
+      tehname = #{record.tehname,jdbcType=VARCHAR},
+      tehsex = #{record.tehsex,jdbcType=VARCHAR},
+      tahtel = #{record.tahtel,jdbcType=INTEGER},
+      tehqq = #{record.tehqq,jdbcType=INTEGER},
+      tehcourse = #{record.tehcourse,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Tehinfo" >
+    update tehinfo
+    <set >
+      <if test="tehgh != null" >
+        tehgh = #{tehgh,jdbcType=INTEGER},
+      </if>
+      <if test="tehpwd != null" >
+        tehpwd = #{tehpwd,jdbcType=INTEGER},
+      </if>
+      <if test="tehname != null" >
+        tehname = #{tehname,jdbcType=VARCHAR},
+      </if>
+      <if test="tehsex != null" >
+        tehsex = #{tehsex,jdbcType=VARCHAR},
+      </if>
+      <if test="tahtel != null" >
+        tahtel = #{tahtel,jdbcType=INTEGER},
+      </if>
+      <if test="tehqq != null" >
+        tehqq = #{tehqq,jdbcType=INTEGER},
+      </if>
+      <if test="tehcourse != null" >
+        tehcourse = #{tehcourse,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tehid = #{tehid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Tehinfo" >
+    update tehinfo
+    set tehgh = #{tehgh,jdbcType=INTEGER},
+      tehpwd = #{tehpwd,jdbcType=INTEGER},
+      tehname = #{tehname,jdbcType=VARCHAR},
+      tehsex = #{tehsex,jdbcType=VARCHAR},
+      tahtel = #{tahtel,jdbcType=INTEGER},
+      tehqq = #{tehqq,jdbcType=INTEGER},
+      tehcourse = #{tehcourse,jdbcType=VARCHAR}
+    where tehid = #{tehid,jdbcType=INTEGER}
+  </update>
+</mapper>

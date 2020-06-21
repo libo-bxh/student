@@ -31,7 +31,7 @@
 	<mvc:default-servlet-handler/>
 	<!-- 配置返回页面 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/"/>
+		<property name="prefix" value="/WEB-INF/jsp/"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>
 	<!-- 访问静态资源文件  -->

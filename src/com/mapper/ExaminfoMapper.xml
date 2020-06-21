@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.ExaminfoMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.Examinfo" >
+    <id column="emid" property="emid" jdbcType="INTEGER" />
+    <result column="emname" property="emname" jdbcType="VARCHAR" />
+    <result column="emtime" property="emtime" jdbcType="VARCHAR" />
+    <result column="emtype" property="emtype" jdbcType="VARCHAR" />
+    <result column="emgrade" property="emgrade" jdbcType="VARCHAR" />
+    <result column="emclass" property="emclass" jdbcType="VARCHAR" />
+    <result column="emsubject" property="emsubject" jdbcType="VARCHAR" />
+    <result column="emremark" property="emremark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    emid, emname, emtime, emtype, emgrade, emclass, emsubject, emremark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.entity.ExaminfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from examinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from examinfo
+    where emid = #{emid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from examinfo
+    where emid = #{emid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.entity.ExaminfoExample" >
+    delete from examinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entity.Examinfo" >
+    insert into examinfo (emid, emname, emtime, 
+      emtype, emgrade, emclass, 
+      emsubject, emremark)
+    values (#{emid,jdbcType=INTEGER}, #{emname,jdbcType=VARCHAR}, #{emtime,jdbcType=VARCHAR}, 
+      #{emtype,jdbcType=VARCHAR}, #{emgrade,jdbcType=VARCHAR}, #{emclass,jdbcType=VARCHAR}, 
+      #{emsubject,jdbcType=VARCHAR}, #{emremark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Examinfo" >
+    insert into examinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="emid != null" >
+        emid,
+      </if>
+      <if test="emname != null" >
+        emname,
+      </if>
+      <if test="emtime != null" >
+        emtime,
+      </if>
+      <if test="emtype != null" >
+        emtype,
+      </if>
+      <if test="emgrade != null" >
+        emgrade,
+      </if>
+      <if test="emclass != null" >
+        emclass,
+      </if>
+      <if test="emsubject != null" >
+        emsubject,
+      </if>
+      <if test="emremark != null" >
+        emremark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="emid != null" >
+        #{emid,jdbcType=INTEGER},
+      </if>
+      <if test="emname != null" >
+        #{emname,jdbcType=VARCHAR},
+      </if>
+      <if test="emtime != null" >
+        #{emtime,jdbcType=VARCHAR},
+      </if>
+      <if test="emtype != null" >
+        #{emtype,jdbcType=VARCHAR},
+      </if>
+      <if test="emgrade != null" >
+        #{emgrade,jdbcType=VARCHAR},
+      </if>
+      <if test="emclass != null" >
+        #{emclass,jdbcType=VARCHAR},
+      </if>
+      <if test="emsubject != null" >
+        #{emsubject,jdbcType=VARCHAR},
+      </if>
+      <if test="emremark != null" >
+        #{emremark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entity.ExaminfoExample" resultType="java.lang.Integer" >
+    select count(*) from examinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update examinfo
+    <set >
+      <if test="record.emid != null" >
+        emid = #{record.emid,jdbcType=INTEGER},
+      </if>
+      <if test="record.emname != null" >
+        emname = #{record.emname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emtime != null" >
+        emtime = #{record.emtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emtype != null" >
+        emtype = #{record.emtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgrade != null" >
+        emgrade = #{record.emgrade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emclass != null" >
+        emclass = #{record.emclass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emsubject != null" >
+        emsubject = #{record.emsubject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emremark != null" >
+        emremark = #{record.emremark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update examinfo
+    set emid = #{record.emid,jdbcType=INTEGER},
+      emname = #{record.emname,jdbcType=VARCHAR},
+      emtime = #{record.emtime,jdbcType=VARCHAR},
+      emtype = #{record.emtype,jdbcType=VARCHAR},
+      emgrade = #{record.emgrade,jdbcType=VARCHAR},
+      emclass = #{record.emclass,jdbcType=VARCHAR},
+      emsubject = #{record.emsubject,jdbcType=VARCHAR},
+      emremark = #{record.emremark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Examinfo" >
+    update examinfo
+    <set >
+      <if test="emname != null" >
+        emname = #{emname,jdbcType=VARCHAR},
+      </if>
+      <if test="emtime != null" >
+        emtime = #{emtime,jdbcType=VARCHAR},
+      </if>
+      <if test="emtype != null" >
+        emtype = #{emtype,jdbcType=VARCHAR},
+      </if>
+      <if test="emgrade != null" >
+        emgrade = #{emgrade,jdbcType=VARCHAR},
+      </if>
+      <if test="emclass != null" >
+        emclass = #{emclass,jdbcType=VARCHAR},
+      </if>
+      <if test="emsubject != null" >
+        emsubject = #{emsubject,jdbcType=VARCHAR},
+      </if>
+      <if test="emremark != null" >
+        emremark = #{emremark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where emid = #{emid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Examinfo" >
+    update examinfo
+    set emname = #{emname,jdbcType=VARCHAR},
+      emtime = #{emtime,jdbcType=VARCHAR},
+      emtype = #{emtype,jdbcType=VARCHAR},
+      emgrade = #{emgrade,jdbcType=VARCHAR},
+      emclass = #{emclass,jdbcType=VARCHAR},
+      emsubject = #{emsubject,jdbcType=VARCHAR},
+      emremark = #{emremark,jdbcType=VARCHAR}
+    where emid = #{emid,jdbcType=INTEGER}
+  </update>
+  
+  
+<!--   查询所有 -->
+<select id="exlist" resultType="com.entity.Examinfo">
+SELECT * FROM examinfo;
+</select>
+<!--   增加 -->
+<insert id="exuser" parameterType="com.entity.Examinfo"  >
+INSERT INTO examinfo(emname,emtime,emtype,emgrade,emclass,emsubject,emremark)VALUES(#{emname},#{emtime},#{emtype},#{emgrade},#{emclass},#{emsubject},#{emremark});
+  </insert>
+
+
+  <select id="allexam" resultType="list">
+  	select * from examinfo
+  </select>
+ 
+  
+</mapper>

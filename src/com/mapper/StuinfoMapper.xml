@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.StuinfoMapper" >
+  <!-- 判断登录 -->
+  <select id="CheckLogin" resultType="Stuinfo">
+  	select * from Stuinfo where stuname=#{stuname} and stupwd=#{stupwd}
+  </select>
+
+    <select id="allstumail" resultMap="BaseResultMap">
+  	select * from Stuinfo
+    </select>
+
+ <select id="allstuscore" resultType="Score">
+		select * from stuinfo t,score s where t.stuid=s.stuid;
+  </select>
+
+
+
+  <select id="SelectAllStuinfoOne" resultMap="BaseResultMap">
+  		select * from stuinfo where stuid=#{aid}
+  </select>
+  <update id="UpdateStuinfo">
+  		UPDATE stuinfo set stuxh=#{stuxh},stupwd=#{stupwd},stuname=#{stuname}
+  		,stusex=#{stusex},stutel=#{stutel},stuqq=#{stuqq},stuclass=#{stuclass}
+  		,stugrade=#{stugrade} where stuid=#{stuid}
+  </update>
+
+
+  <resultMap id="BaseResultMap" type="com.entity.Stuinfo" >
+    <id column="stuid" property="stuid" jdbcType="INTEGER" />
+    <result column="stuxh" property="stuxh" jdbcType="INTEGER" />
+    <result column="stupwd" property="stupwd" jdbcType="VARCHAR" />
+    <result column="stuname" property="stuname" jdbcType="VARCHAR" />
+    <result column="stusex" property="stusex" jdbcType="VARCHAR" />
+    <result column="stutel" property="stutel" jdbcType="INTEGER" />
+    <result column="stuqq" property="stuqq" jdbcType="INTEGER" />
+    <result column="stuclass" property="stuclass" jdbcType="VARCHAR" />
+    <result column="stugrade" property="stugrade" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    stuid, stuxh, stupwd, stuname, stusex, stutel, stuqq, stuclass, stugrade
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.entity.StuinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stuinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from stuinfo
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from stuinfo
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.entity.StuinfoExample" >
+    delete from stuinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entity.Stuinfo" >
+    insert into stuinfo (stuid, stuxh, stupwd, 
+      stuname, stusex, stutel, 
+      stuqq, stuclass, stugrade
+      )
+    values (#{stuid,jdbcType=INTEGER}, #{stuxh,jdbcType=INTEGER}, #{stupwd,jdbcType=VARCHAR}, 
+      #{stuname,jdbcType=VARCHAR}, #{stusex,jdbcType=VARCHAR}, #{stutel,jdbcType=INTEGER}, 
+      #{stuqq,jdbcType=INTEGER}, #{stuclass,jdbcType=VARCHAR}, #{stugrade,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Stuinfo" >
+    insert into stuinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stuid != null" >
+        stuid,
+      </if>
+      <if test="stuxh != null" >
+        stuxh,
+      </if>
+      <if test="stupwd != null" >
+        stupwd,
+      </if>
+      <if test="stuname != null" >
+        stuname,
+      </if>
+      <if test="stusex != null" >
+        stusex,
+      </if>
+      <if test="stutel != null" >
+        stutel,
+      </if>
+      <if test="stuqq != null" >
+        stuqq,
+      </if>
+      <if test="stuclass != null" >
+        stuclass,
+      </if>
+      <if test="stugrade != null" >
+        stugrade,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stuid != null" >
+        #{stuid,jdbcType=INTEGER},
+      </if>
+      <if test="stuxh != null" >
+        #{stuxh,jdbcType=INTEGER},
+      </if>
+      <if test="stupwd != null" >
+        #{stupwd,jdbcType=VARCHAR},
+      </if>
+      <if test="stuname != null" >
+        #{stuname,jdbcType=VARCHAR},
+      </if>
+      <if test="stusex != null" >
+        #{stusex,jdbcType=VARCHAR},
+      </if>
+      <if test="stutel != null" >
+        #{stutel,jdbcType=INTEGER},
+      </if>
+      <if test="stuqq != null" >
+        #{stuqq,jdbcType=INTEGER},
+      </if>
+      <if test="stuclass != null" >
+        #{stuclass,jdbcType=VARCHAR},
+      </if>
+      <if test="stugrade != null" >
+        #{stugrade,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entity.StuinfoExample" resultType="java.lang.Integer" >
+    select count(*) from stuinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update stuinfo
+    <set >
+      <if test="record.stuid != null" >
+        stuid = #{record.stuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.stuxh != null" >
+        stuxh = #{record.stuxh,jdbcType=INTEGER},
+      </if>
+      <if test="record.stupwd != null" >
+        stupwd = #{record.stupwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuname != null" >
+        stuname = #{record.stuname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stusex != null" >
+        stusex = #{record.stusex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stutel != null" >
+        stutel = #{record.stutel,jdbcType=INTEGER},
+      </if>
+      <if test="record.stuqq != null" >
+        stuqq = #{record.stuqq,jdbcType=INTEGER},
+      </if>
+      <if test="record.stuclass != null" >
+        stuclass = #{record.stuclass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stugrade != null" >
+        stugrade = #{record.stugrade,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update stuinfo
+    set stuid = #{record.stuid,jdbcType=INTEGER},
+      stuxh = #{record.stuxh,jdbcType=INTEGER},
+      stupwd = #{record.stupwd,jdbcType=VARCHAR},
+      stuname = #{record.stuname,jdbcType=VARCHAR},
+      stusex = #{record.stusex,jdbcType=VARCHAR},
+      stutel = #{record.stutel,jdbcType=INTEGER},
+      stuqq = #{record.stuqq,jdbcType=INTEGER},
+      stuclass = #{record.stuclass,jdbcType=VARCHAR},
+      stugrade = #{record.stugrade,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Stuinfo" >
+    update stuinfo
+    <set >
+      <if test="stuxh != null" >
+        stuxh = #{stuxh,jdbcType=INTEGER},
+      </if>
+      <if test="stupwd != null" >
+        stupwd = #{stupwd,jdbcType=VARCHAR},
+      </if>
+      <if test="stuname != null" >
+        stuname = #{stuname,jdbcType=VARCHAR},
+      </if>
+      <if test="stusex != null" >
+        stusex = #{stusex,jdbcType=VARCHAR},
+      </if>
+      <if test="stutel != null" >
+        stutel = #{stutel,jdbcType=INTEGER},
+      </if>
+      <if test="stuqq != null" >
+        stuqq = #{stuqq,jdbcType=INTEGER},
+      </if>
+      <if test="stuclass != null" >
+        stuclass = #{stuclass,jdbcType=VARCHAR},
+      </if>
+      <if test="stugrade != null" >
+        stugrade = #{stugrade,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Stuinfo" >
+    update stuinfo
+    set stuxh = #{stuxh,jdbcType=INTEGER},
+      stupwd = #{stupwd,jdbcType=VARCHAR},
+      stuname = #{stuname,jdbcType=VARCHAR},
+      stusex = #{stusex,jdbcType=VARCHAR},
+      stutel = #{stutel,jdbcType=INTEGER},
+      stuqq = #{stuqq,jdbcType=INTEGER},
+      stuclass = #{stuclass,jdbcType=VARCHAR},
+      stugrade = #{stugrade,jdbcType=VARCHAR}
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </update>
+</mapper>

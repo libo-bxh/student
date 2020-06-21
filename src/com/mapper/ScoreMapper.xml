@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.ScoreMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.Score" >
+    <id column="scid" property="scid" jdbcType="INTEGER" />
+    <result column="language" property="language" jdbcType="INTEGER" />
+    <result column="math" property="math" jdbcType="INTEGER" />
+    <result column="english" property="english" jdbcType="INTEGER" />
+    <result column="physics" property="physics" jdbcType="INTEGER" />
+    <result column="chemistry" property="chemistry" jdbcType="INTEGER" />
+    <result column="total" property="total" jdbcType="INTEGER" />
+    <result column="stuid" property="stuid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    scid, language, math, english, physics, chemistry, total, stuid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.entity.ScoreExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from score
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from score
+    where scid = #{scid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from score
+    where scid = #{scid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.entity.ScoreExample" >
+    delete from score
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entity.Score" >
+    insert into score (scid, language, math, 
+      english, physics, chemistry, 
+      total, stuid)
+    values (#{scid,jdbcType=INTEGER}, #{language,jdbcType=INTEGER}, #{math,jdbcType=INTEGER}, 
+      #{english,jdbcType=INTEGER}, #{physics,jdbcType=INTEGER}, #{chemistry,jdbcType=INTEGER}, 
+      #{total,jdbcType=INTEGER}, #{stuid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Score" >
+    insert into score
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scid != null" >
+        scid,
+      </if>
+      <if test="language != null" >
+        language,
+      </if>
+      <if test="math != null" >
+        math,
+      </if>
+      <if test="english != null" >
+        english,
+      </if>
+      <if test="physics != null" >
+        physics,
+      </if>
+      <if test="chemistry != null" >
+        chemistry,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="stuid != null" >
+        stuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scid != null" >
+        #{scid,jdbcType=INTEGER},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=INTEGER},
+      </if>
+      <if test="math != null" >
+        #{math,jdbcType=INTEGER},
+      </if>
+      <if test="english != null" >
+        #{english,jdbcType=INTEGER},
+      </if>
+      <if test="physics != null" >
+        #{physics,jdbcType=INTEGER},
+      </if>
+      <if test="chemistry != null" >
+        #{chemistry,jdbcType=INTEGER},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=INTEGER},
+      </if>
+      <if test="stuid != null" >
+        #{stuid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entity.ScoreExample" resultType="java.lang.Integer" >
+    select count(*) from score
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update score
+    <set >
+      <if test="record.scid != null" >
+        scid = #{record.scid,jdbcType=INTEGER},
+      </if>
+      <if test="record.language != null" >
+        language = #{record.language,jdbcType=INTEGER},
+      </if>
+      <if test="record.math != null" >
+        math = #{record.math,jdbcType=INTEGER},
+      </if>
+      <if test="record.english != null" >
+        english = #{record.english,jdbcType=INTEGER},
+      </if>
+      <if test="record.physics != null" >
+        physics = #{record.physics,jdbcType=INTEGER},
+      </if>
+      <if test="record.chemistry != null" >
+        chemistry = #{record.chemistry,jdbcType=INTEGER},
+      </if>
+      <if test="record.total != null" >
+        total = #{record.total,jdbcType=INTEGER},
+      </if>
+      <if test="record.stuid != null" >
+        stuid = #{record.stuid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update score
+    set scid = #{record.scid,jdbcType=INTEGER},
+      language = #{record.language,jdbcType=INTEGER},
+      math = #{record.math,jdbcType=INTEGER},
+      english = #{record.english,jdbcType=INTEGER},
+      physics = #{record.physics,jdbcType=INTEGER},
+      chemistry = #{record.chemistry,jdbcType=INTEGER},
+      total = #{record.total,jdbcType=INTEGER},
+      stuid = #{record.stuid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Score" >
+    update score
+    <set >
+      <if test="language != null" >
+        language = #{language,jdbcType=INTEGER},
+      </if>
+      <if test="math != null" >
+        math = #{math,jdbcType=INTEGER},
+      </if>
+      <if test="english != null" >
+        english = #{english,jdbcType=INTEGER},
+      </if>
+      <if test="physics != null" >
+        physics = #{physics,jdbcType=INTEGER},
+      </if>
+      <if test="chemistry != null" >
+        chemistry = #{chemistry,jdbcType=INTEGER},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=INTEGER},
+      </if>
+      <if test="stuid != null" >
+        stuid = #{stuid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where scid = #{scid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Score" >
+    update score
+    set language = #{language,jdbcType=INTEGER},
+      math = #{math,jdbcType=INTEGER},
+      english = #{english,jdbcType=INTEGER},
+      physics = #{physics,jdbcType=INTEGER},
+      chemistry = #{chemistry,jdbcType=INTEGER},
+      total = #{total,jdbcType=INTEGER},
+      stuid = #{stuid,jdbcType=INTEGER}
+    where scid = #{scid,jdbcType=INTEGER}
+  </update>
+  <select id="SelectAllScore" resultMap="BaseResultMap">
+  	select * from score
+  </select>
+  
+  <select id="sclist" resultType="com.entity.Score">
+SELECT * from score s,stuinfo stu WHERE s.stuid=stu.stuid;
+</select>
+</mapper>
