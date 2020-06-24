@@ -41,7 +41,7 @@ public class Interceptor implements HandlerInterceptor {
         if (admin != null || stu != null || te != null) {
             return true;
         }
-        arg0.getRequestDispatcher("index.jsp").forward(arg0, arg1);
+        arg0.getRequestDispatcher("login.jsp").forward(arg0, arg1);
         return false;
     }
 

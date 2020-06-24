@@ -45,7 +45,7 @@ public class LoginController {
                 session.setAttribute("aname", name);
                 session.setAttribute("type", "1");
                 session.setAttribute("typename", "管理员");
-                return "admin";
+                return "index1";
             } else {
                 return "error";
             }
